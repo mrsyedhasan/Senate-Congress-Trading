@@ -1,0 +1,155 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ant-layout {
+  background: #f5f5f5;
+}
+
+.ant-layout-header {
+  background: #fff !important;
+  padding: 0 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ant-layout-content {
+  background: #f5f5f5;
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+}
+
+.ant-menu-horizontal {
+  border-bottom: none !important;
+}
+
+.ant-menu-item {
+  border-bottom: 2px solid transparent !important;
+}
+
+.ant-menu-item-selected {
+  border-bottom-color: #1890ff !important;
+}
+
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.ant-statistic-content {
+  color: #262626;
+}
+
+.chart-container .recharts-wrapper {
+  margin: 0 auto;
+}
+
+.filter-section {
+  background: #fafafa;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1890ff;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 14px;
+}
+
+.table-container {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-tag {
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ant-btn {
+  border-radius: 6px;
+}
+
+.ant-input {
+  border-radius: 6px;
+}
+
+.ant-select-selector {
+  border-radius: 6px !important;
+}
+
+.ant-picker {
+  border-radius: 6px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ant-layout-content {
+    padding: 16px;
+  }
+  
+  .ant-table {
+    font-size: 12px;
+  }
+  
+  .stat-number {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ant-layout-content {
+    padding: 12px;
+  }
+  
+  .ant-card {
+    margin-bottom: 16px;
+  }
+  
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 8px 4px;
+  }
+}
