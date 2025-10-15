@@ -1,6 +1,14 @@
 # Congressional Trading Dashboard
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=flat&logo=github)](https://github.com/mrsyedhasan/Senate-Congress-Trading)
+[![Python](https://img.shields.io/badge/Python-3.9+-green?style=flat&logo=python)](https://python.org)
+[![React](https://img.shields.io/badge/React-18+-blue?style=flat&logo=react)](https://reactjs.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Latest-green?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?style=flat&logo=postgresql)](https://postgresql.org)
+
 A comprehensive dashboard for tracking stock trades made by members of Congress and Senate, including committee memberships and transaction details.
+
+**🔗 Repository**: [https://github.com/mrsyedhasan/Senate-Congress-Trading](https://github.com/mrsyedhasan/Senate-Congress-Trading)
 
 ## Features
 
@@ -41,7 +49,7 @@ All data is sourced from free, publicly available, open-source repositories and 
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/mrsyedhasan/Senate-Congress-Trading.git
 cd Senate-Congress-Trading
 
 # Set up Python backend
