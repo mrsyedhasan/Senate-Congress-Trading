@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Card, Select, Button, Space, Tag, Spin, Alert, Statistic, Row, Col, Collapse } from 'antd';
 import { ReloadOutlined, BankOutlined, TeamOutlined } from '@ant-design/icons';
-import { getCommittees, type Committee as APICommittee } from '../services/api';
+import { getCommittees, type Committee } from '../services/api';
 import type { ColumnsType } from 'antd/es/table';
 
 const { Option } = Select;
 const { Panel } = Collapse;
-
-interface Committee {
-  id: number;
-  name: string;
-  code: string;
-  chamber: string;
-  subcommittee: boolean;
-  parent_committee_id?: number;
-  description?: string;
-  created_at: string;
-  updated_at: string;
-}
 
 const CommitteesList: React.FC = () => {
   const [committees, setCommittees] = useState<Committee[]>([]);
@@ -41,7 +29,7 @@ const CommitteesList: React.FC = () => {
       if (filters.subcommittee !== '') params.append('subcommittee', filters.subcommittee);
 
       const data = await getCommittees(params.toString());
-      setCommittees(data as Committee[]);
+      setCommittees(data);
     } catch (err) {
       setError('Failed to load committees');
       console.error('Error fetching committees:', err);

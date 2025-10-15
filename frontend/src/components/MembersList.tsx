@@ -1,26 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Card, Select, Input, Button, Space, Tag, Spin, Alert, Statistic, Row, Col } from 'antd';
 import { SearchOutlined, ReloadOutlined, UserOutlined } from '@ant-design/icons';
-import { getMembers, getMostActiveTraders, type Member as APIMember } from '../services/api';
+import { getMembers, getMostActiveTraders, type Member } from '../services/api';
 import type { ColumnsType } from 'antd/es/table';
 
 const { Option } = Select;
-
-interface Member {
-  id: number;
-  name: string;
-  chamber: string;
-  state: string;
-  party: string;
-  district?: string;
-  office?: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-  bio?: string;
-  created_at: string;
-  updated_at: string;
-}
 
 const MembersList: React.FC = () => {
   const [members, setMembers] = useState<Member[]>([]);
@@ -48,7 +32,7 @@ const MembersList: React.FC = () => {
       if (filters.has_trades !== '') params.append('has_trades', filters.has_trades);
 
       const data = await getMembers(params.toString());
-      setMembers(data as Member[]);
+      setMembers(data);
     } catch (err) {
       setError('Failed to load members');
       console.error('Error fetching members:', err);

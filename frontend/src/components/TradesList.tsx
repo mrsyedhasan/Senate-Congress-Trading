@@ -1,29 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Card, Select, Input, DatePicker, Button, Space, Tag, Spin, Alert, Row, Col } from 'antd';
 import { SearchOutlined, ReloadOutlined } from '@ant-design/icons';
-import { getTrades, type Trade as APITrade } from '../services/api';
+import { getTrades, type Trade } from '../services/api';
 import type { ColumnsType } from 'antd/es/table';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-
-interface Trade {
-  id: number;
-  ticker: string;
-  company_name?: string;
-  transaction_type: string;
-  transaction_date: string;
-  amount_min?: number;
-  amount_max?: number;
-  amount_exact?: number;
-  member: {
-    id: number;
-    name: string;
-    chamber: string;
-    party: string;
-    state: string;
-  };
-}
 
 const TradesList: React.FC = () => {
   const [trades, setTrades] = useState<Trade[]>([]);
@@ -56,7 +38,7 @@ const TradesList: React.FC = () => {
       }
 
       const data = await getTrades(params.toString());
-      setTrades(data as Trade[]);
+      setTrades(data);
     } catch (err) {
       setError('Failed to load trades');
       console.error('Error fetching trades:', err);
@@ -136,6 +118,17 @@ const TradesList: React.FC = () => {
   };
 
   const columns: ColumnsType<Trade> = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: 60,
+      render: (id: number) => (
+        <div style={{ fontSize: '11px', color: '#999' }}>
+          #{id}
+        </div>
+      ),
+    },
     {
       title: 'Member',
       dataIndex: 'member',
@@ -217,7 +210,17 @@ const TradesList: React.FC = () => {
       title: 'Date',
       dataIndex: 'transaction_date',
       key: 'transaction_date',
-      render: (date: string) => new Date(date).toLocaleDateString(),
+      render: (date: string) => {
+        const d = new Date(date);
+        return (
+          <div>
+            <div>{d.toLocaleDateString()}</div>
+            <div style={{ fontSize: '11px', color: '#999' }}>
+              {d.toLocaleTimeString()}
+            </div>
+          </div>
+        );
+      },
       sorter: (a, b) => new Date(a.transaction_date).getTime() - new Date(b.transaction_date).getTime(),
       defaultSortOrder: 'descend',
     },
