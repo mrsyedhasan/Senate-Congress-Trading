@@ -147,14 +147,15 @@ class CongressDataCollector:
         Collect data using CapitolGains package approach
         """
         try:
-            # This would use the CapitolGains package to fetch data
-            # For now, we'll simulate the data collection
             logger.info("Collecting CapitolGains data...")
             
+            # TODO: Implement real CapitolGains data collection
             # In a real implementation, you would:
             # from capitolgains import CapitolGains
             # cg = CapitolGains()
             # data = cg.get_trades()
+            
+            logger.info("CapitolGains data collection not yet implemented - using real data sources only")
             
         except Exception as e:
             logger.error(f"Error collecting CapitolGains data: {e}")
@@ -166,23 +167,26 @@ class CongressDataCollector:
         try:
             logger.info("Collecting STOCK Act disclosures...")
             
-            # This would scrape official disclosure websites
-            # For now, we'll add some realistic sample data
-            await self._add_realistic_trading_data()
+            # TODO: Implement real STOCK Act disclosure scraping
+            # This would scrape official disclosure websites like:
+            # - Senate.gov financial disclosure reports
+            # - House.gov financial disclosure reports
+            # - Clerk.house.gov disclosure reports
+            
+            logger.info("STOCK Act disclosure collection not yet implemented - using real data sources only")
             
         except Exception as e:
             logger.error(f"Error collecting STOCK Act disclosures: {e}")
     
     async def _add_realistic_trading_data(self):
         """
-        Add realistic trading data based on known Congressional trading patterns
+        DISABLED: Add realistic trading data based on known Congressional trading patterns
+        This method is disabled to use only real data sources.
         """
         try:
-            # Get existing members
-            members = self.db.query(Member).all()
-            if not members:
-                logger.warning("No members found to add trading data")
-                return
+            # DISABLED: This method generates sample data
+            logger.info("Realistic trading data generation is disabled - using only real data sources")
+            return
             
             # Realistic stock tickers that Congress members commonly trade
             realistic_tickers = [

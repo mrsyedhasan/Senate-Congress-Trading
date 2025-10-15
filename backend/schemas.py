@@ -96,6 +96,12 @@ class TradeResponse(TradeBase):
 class TradeWithMember(TradeResponse):
     member: MemberResponse
 
+class MemberWithCommittees(MemberResponse):
+    committees: List[CommitteeResponse] = []
+
+class TradeWithMemberAndCommittees(TradeResponse):
+    member: MemberWithCommittees
+
 class DashboardStats(BaseModel):
     total_trades: int
     total_members: int

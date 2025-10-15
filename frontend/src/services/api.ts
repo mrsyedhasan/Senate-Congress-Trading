@@ -57,6 +57,7 @@ export interface Trade {
     party: string;
     state: string;
     district?: string;
+    committees?: Committee[];
   };
 }
 

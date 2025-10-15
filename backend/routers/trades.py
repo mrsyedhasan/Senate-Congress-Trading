@@ -5,14 +5,14 @@ from typing import List, Optional
 from datetime import datetime, timedelta
 
 from database import get_db
-from models import Trade, Member
-from schemas import TradeResponse, TradeWithMember, TradeFilter, DashboardStats
+from models import Trade, Member, Committee, CommitteeMembership
+from schemas import TradeResponse, TradeWithMember, TradeWithMemberAndCommittees, TradeFilter, DashboardStats
 import logging
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-@router.get("/", response_model=List[TradeWithMember])
+@router.get("/", response_model=List[TradeWithMemberAndCommittees])
 async def get_trades(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=1000),
@@ -25,10 +25,11 @@ async def get_trades(
     end_date: Optional[datetime] = None,
     min_amount: Optional[float] = None,
     max_amount: Optional[float] = None,
+    include_committees: bool = Query(True),
     db: Session = Depends(get_db)
 ):
     """
-    Get trades with optional filtering
+    Get trades with optional filtering and committee information
     """
     query = db.query(Trade).join(Member)
     
@@ -64,6 +65,31 @@ async def get_trades(
     
     # Order by transaction date (most recent first)
     trades = query.order_by(Trade.transaction_date.desc()).offset(skip).limit(limit).all()
+    
+    # If committees are requested, fetch committee memberships for each member
+    if include_committees:
+        result = []
+        for trade in trades:
+            # Get committee memberships for this member
+            committee_memberships = db.query(CommitteeMembership).join(Committee).filter(
+                CommitteeMembership.member_id == trade.member_id,
+                CommitteeMembership.end_date.is_(None)  # Only current memberships
+            ).all()
+            
+            # Create member with committees
+            member_data = {
+                **trade.member.__dict__,
+                'committees': [cm.committee.__dict__ for cm in committee_memberships]
+            }
+            
+            # Create trade with member and committees
+            trade_data = {
+                **trade.__dict__,
+                'member': member_data
+            }
+            result.append(trade_data)
+        
+        return result
     
     return trades
 

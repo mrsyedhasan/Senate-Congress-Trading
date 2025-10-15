@@ -231,21 +231,21 @@ class RealDataScraper:
             response = self.session.get(url)
             if response.status_code == 200:
                 # This would require more sophisticated parsing
-                # For now, we'll add some realistic Senate data
-                await self._add_senate_sample_data()
+                # TODO: Implement real Senate data scraping
+                logger.info("Real Senate data scraping not yet implemented")
                 
         except Exception as e:
             logger.error(f"Error scraping Senate disclosures: {e}")
     
     async def _add_senate_sample_data(self):
         """
-        Add sample Senate data based on known patterns
+        DISABLED: Add sample Senate data based on known patterns
+        This method is disabled to use only real data sources.
         """
         try:
-            from models import Member, Trade
-            
-            # Get Senate members
-            senate_members = self.db.query(Member).filter(Member.chamber == "Senate").all()
+            # DISABLED: This method generates sample data
+            logger.info("Senate sample data generation is disabled - using only real data sources")
+            return
             
             if not senate_members:
                 logger.warning("No Senate members found")

@@ -117,6 +117,7 @@ const TradesList: React.FC = () => {
     }
   };
 
+
   const columns: ColumnsType<Trade> = [
     {
       title: 'ID',
@@ -197,6 +198,40 @@ const TradesList: React.FC = () => {
       onFilter: (value, record) => record.transaction_type === value,
     },
     {
+      title: 'Committee',
+      key: 'committee',
+      render: (_, record: Trade) => {
+        const committees = record.member.committees || [];
+        if (committees.length === 0) {
+          return <span style={{ color: '#999', fontSize: '12px' }}>No committees</span>;
+        }
+        
+        // Show first 2 committees, with "..." if more
+        const displayCommittees = committees.slice(0, 2);
+        const hasMore = committees.length > 2;
+        
+        return (
+          <div>
+            {displayCommittees.map((committee, index) => (
+              <div key={committee.id} style={{ fontSize: '11px', marginBottom: '2px' }}>
+                <Tag color="blue" style={{ fontSize: '10px' }}>
+                  {committee.name.length > 25 ? 
+                    committee.name.substring(0, 25) + '...' : 
+                    committee.name
+                  }
+                </Tag>
+              </div>
+            ))}
+            {hasMore && (
+              <div style={{ fontSize: '10px', color: '#666', fontStyle: 'italic' }}>
+                +{committees.length - 2} more
+              </div>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       title: 'Amount',
       key: 'amount',
       render: (_, record) => formatAmount(record),
@@ -207,16 +242,30 @@ const TradesList: React.FC = () => {
       },
     },
     {
-      title: 'Date',
+      title: 'Trade Date',
       dataIndex: 'transaction_date',
       key: 'transaction_date',
       render: (date: string) => {
         const d = new Date(date);
+        const estTime = d.toLocaleString('en-US', {
+          timeZone: 'America/New_York',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        });
+        
+        const [datePart, timePart] = estTime.split(', ');
+        const [time, ampm] = timePart.split(' ');
+        
         return (
           <div>
-            <div>{d.toLocaleDateString()}</div>
+            <div>{datePart}</div>
             <div style={{ fontSize: '11px', color: '#999' }}>
-              {d.toLocaleTimeString()}
+              {time} {ampm} EST
             </div>
           </div>
         );
