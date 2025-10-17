@@ -104,12 +104,16 @@ export interface DashboardStats {
 
 // API Functions
 export const getDashboardStats = async (): Promise<DashboardStats> => {
-  const response = await api.get('/api/trades/stats');
+  // Add cache-busting parameter to ensure fresh data
+  const response = await api.get(`/api/trades/stats?t=${Date.now()}`);
   return response.data;
 };
 
 export const getTrades = async (params?: string): Promise<Trade[]> => {
-  const url = params ? `/api/trades?${params}` : '/api/trades';
+  const baseUrl = params ? `/api/trades?${params}` : '/api/trades';
+  // Add cache-busting parameter to ensure fresh data
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  const url = `${baseUrl}${separator}t=${Date.now()}`;
   const response = await api.get(url);
   return response.data;
 };
@@ -135,7 +139,10 @@ export const getTrade = async (tradeId: number): Promise<Trade> => {
 };
 
 export const getMembers = async (params?: string): Promise<Member[]> => {
-  const url = params ? `/api/members?${params}` : '/api/members';
+  const baseUrl = params ? `/api/members?${params}` : '/api/members';
+  // Add cache-busting parameter to ensure fresh data
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  const url = `${baseUrl}${separator}t=${Date.now()}`;
   const response = await api.get(url);
   return response.data;
 };

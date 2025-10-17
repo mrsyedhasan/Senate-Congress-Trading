@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Card, Select, Input, Button, Space, Tag, Spin, Alert, Statistic, Row, Col } from 'antd';
 import { SearchOutlined, ReloadOutlined, UserOutlined } from '@ant-design/icons';
-import { getMembers, getMostActiveTraders, type Member } from '../services/api';
+import { getMembers, type Member } from '../services/api';
 import type { ColumnsType } from 'antd/es/table';
 
 const { Option } = Select;
@@ -25,6 +25,9 @@ const MembersList: React.FC = () => {
     try {
       setLoading(true);
       const params = new URLSearchParams();
+      
+      // Set limit to get all members (backend default is 100, we have 145)
+      params.append('limit', '1000');
       
       if (filters.chamber) params.append('chamber', filters.chamber);
       if (filters.party) params.append('party', filters.party);

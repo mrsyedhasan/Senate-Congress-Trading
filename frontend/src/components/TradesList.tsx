@@ -28,6 +28,9 @@ const TradesList: React.FC = () => {
       setLoading(true);
       const params = new URLSearchParams();
       
+      // Set limit to get all trades (backend default is 100, we have 400+)
+      params.append('limit', '1000');
+      
       if (filters.chamber) params.append('chamber', filters.chamber);
       if (filters.party) params.append('party', filters.party);
       if (filters.ticker) params.append('ticker', filters.ticker);
