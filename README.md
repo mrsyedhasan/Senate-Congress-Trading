@@ -72,7 +72,3 @@ npm start
 ├── docs/             # Documentation
 └── deployment/       # Docker and deployment configs
 ```
-
-## Contributing
-
-This project uses open-source data and is committed to transparency in government financial activities.
